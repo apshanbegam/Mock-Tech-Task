@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 namespace Models
 {
     public class ValidationPeople
@@ -21,22 +22,12 @@ namespace Models
 
         public bool IsHosueNumber3Digit(string address)
         {
-            string HouseNumber = AddressSplit(address);
-            if (HouseNumber.Length == 3)
+            string pattern = "^\\d{3}\\s";
+            if (Regex.IsMatch(address,pattern))
             {
                 return true;
             }
             else return false;
-        }
-
-
-        public string AddressSplit(string address)
-        {
-
-            List<string> AddressSplit = address.Split(" ").ToList();
-           
-            string HouseNumber = AddressSplit[0];
-            return HouseNumber;
         }
 
         public bool IsLongerWeb(string web)
@@ -50,7 +41,6 @@ namespace Models
 
         public bool IsPostcodeOneDigit(string postcode)
         {
-
             var postsplit = postcode.Split(" ");
             var firstpart = postsplit[0].Reverse().ToList();
             if (Char.IsDigit(firstpart[0]) && Char.IsLetter(firstpart[1]))

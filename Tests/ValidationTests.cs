@@ -74,7 +74,7 @@ namespace Models.Test
         public void IsPostCodeOneDigitTest()
         {
             //Arrange
-            string postcode = "M5 3FN";
+            string postcode = "CT2 7PP";
             string postcode1 = "M56 3FN";
             //Act
             var result1 = vp.IsPostcodeOneDigit(postcode);

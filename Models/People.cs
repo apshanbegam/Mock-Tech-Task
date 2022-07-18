@@ -144,7 +144,7 @@ namespace Models
 
             foreach (var record in Records)
             {
-                postcode = record.Address;
+                postcode = record.Postal;
                 if (vp.IsPostcodeOneDigit(postcode))
                 {
                     count++;
