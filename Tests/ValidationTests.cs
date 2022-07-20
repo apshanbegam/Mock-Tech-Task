@@ -1,6 +1,7 @@
 ﻿using Models;
 using FluentAssertions;
 using NUnit.Framework;
+using Models.CsvHelper;
 
 namespace Models.Test
 {
@@ -11,6 +12,7 @@ namespace Models.Test
         public void Setup()
         {
             vp = new ValidationPeople();
+            PeopleQueries people1 = new PeopleQueries();
         }
 
         
@@ -107,7 +109,28 @@ namespace Models.Test
             //Assert
             result1.Should().Be(false);
         }
+
+        [Test]
+        public void MergeTests()
+        {
+            //Arrange
+            List<PeopleElements> p1 = new List<PeopleElements>();
+            CsvParserHelper cvb = new CsvParserHelper();
+
+            p1 = cvb.CsvParser();
+
+            var list1 = p1[0];
+            var list2 = p1[1];
+
+            //Act
+
+            PeopleElements result = vp.ConcatTwoLists(list1, list2);
+
+            //Result
+            result.Phone2.Should().Be(list2.Phone2);
+        }
     }
+
 
 }
 

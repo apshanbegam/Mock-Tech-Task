@@ -63,6 +63,25 @@ namespace Models
             else return false;
         }
 
+        public PeopleElements ConcatTwoLists(PeopleElements list1, PeopleElements list2)
+        {
+            var newRecord = new PeopleElements() {
+               FirstName = list1.FirstName,
+                LastName = list1.LastName,
+                CompanyName = list1.CompanyName,
+                Address = list1.Address,
+                Phone1 = list1.Phone1,
+                Phone2 = list2.Phone2,
+                City= list2.City,
+                County = list2.County,
+                Email=list2.County,
+                Web= list1.Web,
+                Postal=list1.Postal
+
+            };
+            return newRecord;
+
+        }
 
     }
 }

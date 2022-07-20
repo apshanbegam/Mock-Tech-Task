@@ -1,34 +1,32 @@
 ﻿using System;
-using CsvHelper;
-using System.IO;
 using System.Linq;
-using System.Globalization;
+using System.Collections.Generic;
+using Models.CsvHelper;
 
 
 namespace Models
 {
-    public class People
+    public class PeopleQueries
     {
-        public List<PeopleElements> Records;
-
+        
         ValidationPeople vp = new ValidationPeople();
 
-        public People()
+        List<PeopleElements> Records = new List<PeopleElements>();
+        
+
+        public List<PeopleElements> Csvhelp()
         {
-            using (var streamReader = new StreamReader(@"input.csv"))
-            {
-                using (var csvReader = new CsvReader(streamReader, CultureInfo.InvariantCulture))
-                {
-                    Records = csvReader.GetRecords<PeopleElements>().ToList();
+            
+            CsvParserHelper cvb = new CsvParserHelper();
 
-                }
-            }
+            Records = cvb.CsvParser();
+            return Records;
         }
-
+        
 
         public void RecordsWithCompanyEsq()
         {
-           var CompanywithEsq = from record in Records where record.CompanyName.Contains("Esq") select record;
+            var CompanywithEsq = from record in Records where record.CompanyName.Contains("Esq") select record;
             int count = CompanywithEsq.Count();
             Console.WriteLine($"Count: {count}");
 
@@ -164,8 +162,19 @@ namespace Models
            
         }
 
+        public  void MergePerson()
+        {
 
-        
+            var partitions = Extensions.partition(Records, 2);
+            Console.WriteLine($"Count: {partitions.Count()}");
+            foreach (var record in partitions)
+            {
+                var list = vp.ConcatTwoLists(record[0], record[1]);
+                Console.WriteLine($"{list.FirstName}   {list.Phone2}");
+            }
+        }
+
+
 
     }
 }

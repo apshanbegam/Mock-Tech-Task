@@ -6,7 +6,7 @@ namespace Models
 {
     public class PeopleElements
     {
- 
+        
         [Name("first_name")]
         public string FirstName { get; set; }
 
